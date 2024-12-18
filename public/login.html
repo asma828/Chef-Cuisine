@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef Cuisine - Log In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-animate {
+            transition: all 0.3s ease;
+        }
+        .btn-animate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 ">
+
+    <header class="bg-white shadow-md  w-full z-50">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <a href="index.html"> <img src="../images/logo.png" class="h-12" alt="logo"> </a>
+            <div class="hidden lg:flex space-x-8">
+                <a href="signup.php" class="btn-animate bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md">Sign Up</a>
+                <a href="login.html" class="btn-animate bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md">Log In</a>
+            </div>
+            <div class="block lg:hidden">
+                <button id="menu-button" class="text-gray-500 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div id="menu" class="fixed top-0 left-0 h-full w-3/4 bg-white px-4 py-2 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden z-50">
+        <div class="flex flex-col space-y-4 mt-20">
+            <a href="" class="btn-animate bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md">Sign Up</a>
+            <a href="login.html" class="btn-animate bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md">Log In</a>
+        </div>
+    </div>
+
+    <section class="py-10 mt-10">
+        <div class="container mx-auto max-w-md bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold mb-6 text-center">Log In</h2>
+            <form action="#" method="POST">
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 font-bold mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" class="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300" required>
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-700 font-bold mb-2">Password</label>
+                    <input type="password" id="password" name="password" class="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-300" required>
+                </div>
+                <div class="mb-6 flex justify-between">
+                    <a href="#" class="text-orange-500 hover:underline">Forgot Password?</a>
+                </div>
+                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-md btn-animate">Log In</button>
+            </form>
+            <p class="mt-4 text-center">Don't have an account? <a href="signup.html" class="text-orange-500 hover:underline">Sign Up</a></p>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Chef's Gastronomic Experience. All rights reserved.</p>
+            <nav class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="hover:underline">Privacy Policy</a>
+                <a href="#" class="hover:underline">Terms of Service</a>
+                <a href="#" class="hover:underline">Contact Us</a>
+            </nav>
+        </div>
+    </footer>
+    <script src="../js/script.js"></script>
+</body>
+</html>
