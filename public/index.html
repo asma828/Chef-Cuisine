@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef Cuisine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-animate {
+            transition: all 0.3s ease;
+        }
+        .btn-animate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto flex justify-between items-center px-6 py-4">
+            <a href="#">
+                <img src="../images/logo.png" class="h-12" alt="logo">
+            </a>
+            <div class="hidden lg:flex space-x-8">
+                <a href="signup.html" class="btn-animate bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md">Sign Up</a>
+                <a href="log in.html" class="btn-animate bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md">Log In</a>
+            </div>
+            <div class="block lg:hidden">
+                <button id="menu-button" class="text-gray-500 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BURGER menu -->
+    <div id="menu" class="fixed top-0 left-0 h-full w-3/4 bg-white px-4 py-2 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden z-50">
+        <div class="flex flex-col space-y-4 mt-20">
+          <a href="sign up.html" class="btn-animate bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md">Sign Up</a>
+            <button class="btn-animate bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md">Log In</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative bg-cover bg-center h-screen" style="background-image: url('../images/chef.jpg');">
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Welcome to the Ultimate Culinary Experience</h1>
+            <p class="text-lg md:text-xl max-w-2xl mb-6">Discover exquisite culinary masterpieces crafted by our world-renowned chef.</p>
+            <a href="#menus" class="btn-animate px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg text-lg font-semibold transition duration-300">Explore Menus</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">About the Chef</h2>
+            <div class="flex flex-col md:flex-row md:justify-center md:space-x-8 space-y-8 md:space-y-0">
+                <div class="flex-1">
+                    <img src="../images/he.jpg" class="rounded-lg shadow-md h-80 mx-auto md:w-auto" alt="Chef Portrait">
+                </div>
+                <div class="flex-1 max-w-lg mx-auto">
+                    <p class="text-lg leading-relaxed mb-6">Our chef is a culinary genius, known for creating unforgettable dining experiences. With a passion for gastronomy and a flair for innovation, our chef combines the finest ingredients with exceptional techniques to create dishes that tantalize the taste buds and delight the senses.</p>
+                    <a href="#services" class="btn-animate px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg text-lg font-semibold transition duration-300">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-100">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <img src="../images/soup.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 1">
+                    <h3 class="text-2xl font-semibold mb-2">Culinary Classes</h3>
+                    <p>Join our interactive culinary classes and learn from the best.</p>
+                </div>
+               
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <img src="../images/ta.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 2">
+                    <h3 class="text-2xl font-semibold mb-2">Private Dining</h3>
+                    <p>Experience an exclusive private dining with our chef.</p>
+                </div>
+              
+                <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                    <img src="../images/deser.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 3">
+                    <h3 class="text-2xl font-semibold mb-2">Catering Services</h3>
+                    <p>Let us cater your next event with our exquisite dishes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <div class="container mx-auto">
+            <p>&copy; 2024 Chef's Gastronomic Experience. All rights reserved.</p>
+            <nav class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="hover:underline">Privacy Policy</a>
+                <a href="#" class="hover:underline">Terms of Service</a>
+                <a href="#" class="hover:underline">Contact Us</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
+
