@@ -30,24 +30,27 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
 </head>
 
 <body class="bg-[#F8F2F1]">
-<?php   if (isset($_SESSION['succe'])): 
-    ?>
-    <div id="successModal" class=" fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div class="bg-white rounded-lg w-1/3 p-6 relative">
-            <button 
-                id="closeSuccessModal" 
-                class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold">
-                &times;
-            </button>
-            <h3 class="text-xl font-primary mb-4 text-[#C0A677]">Success</h3>
-            <p class="text-gray-600 mb-6">
-                <?php echo $_SESSION['succe']; ?>
-            </p>
-            <button id="confirmSuccess" class="bg-[#C0A677] px-4 py-2 rounded-md text-white">OK</button>
-        </div>
-    </div>
-    <?php
-    unset($_SESSION['succe']); endif; ?>
+<?php if (isset($_GET['successful'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '<?= htmlspecialchars($_GET['successful']) ?>',
+            confirmButtonColor: '#f97316'
+        });
+    </script>
+<?php endif; ?>
+
+<?php if (isset($_GET['error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '<?= htmlspecialchars($_GET['error']) ?>',
+            confirmButtonColor: '#f97316'
+        });
+    </script>
+<?php endif; ?>
     <!-- Hero Section -->
         <header>
             <nav class="flex justify-between items-center px-3 pt-2">
@@ -170,16 +173,14 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
         $stmt = mysqli_prepare($conn,$SQL);
         mysqli_stmt_bind_param($stmt,"iissi",$client,$menu,$dateReservation,$time,$nbrPerson);
         if(mysqli_stmt_execute($stmt)){
-            $_SESSION['succe'] = "Rservation created successfuly !";
-            ?>
-            <script> window.location.href = 'Menu.php'</script>
-            <?php
+            
+            header("Location: Menu.php?successful=" . urlencode("Reservation created successfully!"));
+            exit();
+        } else {
+            header("Location: Menu.php?error=" . urlencode("Something went wrong with your reservation!"));
+            exit();
         }
-        else{
-            $_SESSION['message'] = "an error occured will creation Reservation !";
-
-        }
-    } 
+    }
     ?>
 
     <!-- Footer -->
@@ -204,20 +205,7 @@ if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION[
             pop_up.classList.toggle("hidden");
         })
 
-    const successModal = document.getElementById("successModal");
-    const closeSuccessModal = document.getElementById("closeSuccessModal");
-    const confirmSuccess = document.getElementById("confirmSuccess");
-
-    if (successModal) {
-        closeSuccessModal.addEventListener("click", () => {
-            successModal.style.display = "none";
-        });
-
-        confirmSuccess.addEventListener("click", () => {
-            successModal.style.display = "none";
-        });
-
-    }
+   
     </script>
 </body>
 
