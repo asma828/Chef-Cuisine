@@ -24,6 +24,7 @@ $result = mysqli_query($conn,$sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
     </style>
@@ -46,7 +47,7 @@ $result = mysqli_query($conn,$sql);
             swal.fire({
                 icon: 'success',
                 title: 'Success!',
-                Text: '<?= htmlspecialchars($_GET['failed']) ?>',
+                text: '<?= htmlspecialchars($_GET['failed']) ?>',
                 confirmButtonText:'OK'
 
             });
@@ -77,31 +78,7 @@ $result = mysqli_query($conn,$sql);
             <a href="#menus" class="btn-animate px-6 py-3 bg-orange-500 hover:bg-orange-600 rounded-lg text-lg font-semibold transition duration-300">Explore Menus</a>
         </div>
     </section>
-        <!-- Modal -->
-<div id="editModal" class="hidden fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-    <div class="bg-white p-5 rounded-lg w-96">
-        <h2 class="text-xl font-bold mb-4">Edit Reservation</h2>
-        <form id="editForm" action="./UpdateReservation.php" method="POST">
-            <input type="hidden" name="reservation_id" id="reservation_id">
-            <div class="mb-4">
-                <label for="date" class="block mb-1">Date:</label>
-                <input type="date" id="date" name="dateReservation" class="border border-gray-300 p-2 w-full rounded-md">
-            </div>
-            <div class="mb-4">
-                <label for="time" class="block mb-1">Time:</label>
-                <input type="time" id="time" name="heur" class="border border-gray-300 p-2 w-full rounded-md">
-            </div>
-            <div class="mb-4">
-                <label for="nbrPerson" class="block mb-1">Number of Persons:</label>
-                <input type="number" id="nbrPerson" name="nbrPerson" class="border border-gray-300 p-2 w-full rounded-md">
-            </div>
-            <div class="flex justify-end gap-3">
-                <button type="button" id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Save</button>
-            </div>
-        </form>
-    </div>
-</div>
+   
 
     </section>
     <div class="flex flex-wrap justify-center w-[80%] mx-auto gap-3 mt-20 mb-20">
@@ -119,12 +96,40 @@ $result = mysqli_query($conn,$sql);
                 <p class="border border-black p-2 rounded-lg"><?php echo $data['status']?></p>
             </div>
             <div class="flex justify-center items-center gap-2 py-2">
-                <button class="Editer bg-[#C0A677] px-2 py-1 rounded-lg text-white" data-id="<?php echo $data['id']?>" data-date="<?php echo $data['dateReservation'] ?>" data-heur="<?php echo $data['heur']?>" data-nbr="<?php echo $data['nbrPerson'] ?>" data-status = "<?php echo $data['status'] ?>">Editer</button>
+            <button class="open-modal" data-modal="modal-<?php echo $data['id']; ?>">Edit</button>
                 <a href="./SupprimerReservation.php?id=<?php echo $data['id']?>">supprimer</a>
             </div>
         </div>
-        <?php endwhile; ?>
+        
     </div>
+       <!-- Modal -->
+       <div id="modal-<?php echo $data['id']; ?>" class="modal hidden fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+    <div class="bg-white p-5 rounded-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Edit Reservation</h2>
+        <form id="editForm" action="./UpdateReservation.php" method="POST">
+            <input type="hidden" name="reservation_id" id="reservation_id" value="<?php echo $data['id']; ?>">
+            <div class="mb-4">
+                <label for="date" class="block mb-1">Date:</label>
+                <input type="date" id="date" name="dateReservation" value="<?php echo $data['dateReservation']; ?>" class="border border-gray-300 p-2 w-full rounded-md">
+            </div>
+            <div class="mb-4">
+                <label for="time" class="block mb-1">Time:</label>
+                <input type="time" id="time" name="heur" value="<?php echo $data['heur']; ?>" class="border border-gray-300 p-2 w-full rounded-md">
+            </div>
+            <div class="mb-4">
+                <label for="nbrPerson" class="block mb-1">Number of Persons:</label>
+                <input type="number" id="nbrPerson" name="nbrPerson" value="<?php echo $data['nbrPerson']; ?>" class="border border-gray-300 p-2 w-full rounded-md">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-md">Cancel</button>
+                <button type="submit" class="close-modal bg-blue-500 text-white px-4 py-2 rounded-md">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+<?php endwhile; ?>
+
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-white text-center py-6">
         <div class="container mx-auto">
@@ -137,33 +142,18 @@ $result = mysqli_query($conn,$sql);
         </div>
     </footer>
     <script>
-        const Editer = document.querySelectorAll(".Editer");
-        const modal = document.getElementById("editModal");
-        const closeModal = document.getElementById("closeModal");
-        const form = document.getElementById("editForm");
-        // modal fields
-        const reservationIdInput = document.getElementById("reservation_id");
-        const dateInput = document.getElementById("date");
-        const timeInput = document.getElementById("time");
-        const nbrPersonInput = document.getElementById("nbrPerson");
-        Editer.forEach(button => {
-            button.addEventListener("click",()=>{
-                const id = button.dataset.id;
-                const date = button.dataset.date
-                const time = button.dataset.heur
-                const nbr = button.dataset.nbr
+    document.querySelectorAll('.open-modal').forEach(button => {
+    button.addEventListener('click', () => {
+        const modalId = button.getAttribute('data-modal');
+        document.getElementById(modalId).classList.remove('hidden');
+    });
+});
 
-                reservationIdInput.value = id;
-                dateInput.value = date;
-                timeInput.value = time
-                nbrPersonInput.value = nbr
-
-                modal.classList.remove("hidden");
-            })
-        });
-        closeModal.addEventListener("click",()=>{
-            modal.classList.add("hidden");
-        })
-    </script>
+document.querySelectorAll('.close-modal').forEach(button => {
+    button.addEventListener('click', () => {
+        button.closest('.modal').classList.add('hidden');
+    });
+});
+</script>
 </body>
 </html>
