@@ -1,54 +1,49 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id']) || (!($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin'))) {
+    header("Location: login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chef Cuisine</title>
+    <title>Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .btn-animate {
-            transition: all 0.3s ease;
-        }
-        .btn-animate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
     </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'primary': ["Marcellus","serif"],
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="bg-white shadow-md fixed w-full z-50">
-        <div class="container mx-auto flex justify-between items-center px-6 py-4">
-            <a href="#">
-                <img src="../images/logo.png" class="h-12" alt="logo">
-            </a>
-            <div class="hidden lg:flex space-x-8">
-                <a href="signup.html" class="btn-animate bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md">Sign Up</a>
-                <a href="login.html" class="btn-animate bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md">Log In</a>
-            </div>
-            <div class="block lg:hidden">
-                <button id="menu-button" class="text-gray-500 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </header>
 
-    <!-- BURGER menu -->
-    <div id="menu" class="fixed top-0 left-0 h-full w-3/4 bg-white px-4 py-2 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden z-50">
-        <div class="flex flex-col space-y-4 mt-20">
-          <a href="sign up.html" class="btn-animate bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-md">Sign Up</a>
-            <button class="btn-animate bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md">Log In</button>
-        </div>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="relative bg-cover bg-center h-screen" style="background-image: url('../images/chef.jpg');">
+<body class="bg-[#F8F2F1]">
+        <header>
+            <nav class="flex justify-between items-center px-3 pt-2">
+                <img src="./image/logo.png" class="w-auto h-10" alt="">
+                <div class="hidden md:flex items-center space-x-10 mx-auto">
+                    <a href="./Home.php" class="text-black">Home</a>
+                    <a href="./Menu.php" class="text-black">Menu</a>
+                    <a href="./Reservation.php" class="text-black">Reservation</a>
+                    <a href="#" class="text-black">Contact</a>
+                    <a href="./logout.php" class="text-black bg-orange-500 border border-white text-sm ho py-2 px-6 rounded-full ">logout</a>
+                </div>
+            </nav>
+            <img id="menu" src="./image/icons8-menu-50.png" id="MenuBg" class="w-7 h-7 absolute right-4 top-4 md:hidden" alt="">
+            <!-- Hero Section -->
+    <section class="relative bg-cover bg-center h-screen" style="background-image: url('./image/a.jpg');">
         <div class="absolute inset-0 bg-black bg-opacity-60"></div>
         <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
             <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Welcome to the Ultimate Culinary Experience</h1>
@@ -63,7 +58,7 @@
             <h2 class="text-3xl md:text-4xl font-bold mb-8">About the Chef</h2>
             <div class="flex flex-col md:flex-row md:justify-center md:space-x-8 space-y-8 md:space-y-0">
                 <div class="flex-1">
-                    <img src="../images/he.jpg" class="rounded-lg shadow-md h-80 mx-auto md:w-auto" alt="Chef Portrait">
+                    <img src="./image/he.jpg" class="rounded-lg shadow-md h-80 mx-auto md:w-auto" alt="Chef Portrait">
                 </div>
                 <div class="flex-1 max-w-lg mx-auto">
                     <p class="text-lg leading-relaxed mb-6">Our chef is a culinary genius, known for creating unforgettable dining experiences. With a passion for gastronomy and a flair for innovation, our chef combines the finest ingredients with exceptional techniques to create dishes that tantalize the taste buds and delight the senses.</p>
@@ -80,19 +75,19 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               
                 <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                    <img src="../images/soup.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 1">
+                    <img src="./image/chef.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 1">
                     <h3 class="text-2xl font-semibold mb-2">Culinary Classes</h3>
                     <p>Join our interactive culinary classes and learn from the best.</p>
                 </div>
                
                 <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                    <img src="../images/ta.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 2">
+                    <img src="./image/chef.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 2">
                     <h3 class="text-2xl font-semibold mb-2">Private Dining</h3>
                     <p>Experience an exclusive private dining with our chef.</p>
                 </div>
               
                 <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300">
-                    <img src="../images/deser.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 3">
+                    <img src="./image/chef.jpg" class="h-40 w-full object-cover rounded-md mb-4" alt="Service 3">
                     <h3 class="text-2xl font-semibold mb-2">Catering Services</h3>
                     <p>Let us cater your next event with our exquisite dishes.</p>
                 </div>
@@ -112,7 +107,6 @@
         </div>
     </footer>
 
-    <script src="../js/script.js"></script>
+    
 </body>
 </html>
-
